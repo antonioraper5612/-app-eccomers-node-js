@@ -1,5 +1,7 @@
 const express = require('express');
-
+const ratelimit = require('express-rate-limit')
+const helmet = require('helmet')
+const compression = require('compression')
 // Controllers
 const { globalErrorHandler } = require('./controllers/error.controller');
 
@@ -13,6 +15,20 @@ const app = express();
 // Enable incoming JSON data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+//helmet
+app.use(helmet())
+
+//compression
+app.use(compression())
+
+//rate limit
+app.use(ratelimit({
+    windowMs: 60 * 60 * 1000,
+    max: 1000,
+    Message: 'too many requests from your IP,try after 1 hour'
+}))
 
 // Endpoints
 app.use('/api/v1/users', usersRouter);
