@@ -13,7 +13,8 @@ db.sync().then(() => {
 }).catch((error) => console.log(error))
 
 
-const PORT = 4000 || process.env.PORT
+const PORT = process.env.PORT || 4000;
+
 
 app.listen(PORT, () => {
     console.log(`Server Corriendo en puerto ${PORT}`)
