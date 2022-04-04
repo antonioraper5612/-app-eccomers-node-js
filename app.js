@@ -2,6 +2,8 @@ const express = require('express');
 const ratelimit = require('express-rate-limit')
 const helmet = require('helmet')
 const compression = require('compression')
+const morgan = require('morgan')
+
 // Controllers
 const { globalErrorHandler } = require('./controllers/error.controller');
 
@@ -22,6 +24,9 @@ app.use(helmet())
 
 //compression
 app.use(compression())
+
+//morgan
+app.use(morgan('dev'))
 
 //rate limit
 app.use(ratelimit({

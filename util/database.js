@@ -13,7 +13,13 @@ const db = new Sequelize({
     password: process.env.PASSWORD,
     database: process.env.DBNAME,
     port: process.env.PORTDB,
-    logging: false
+    logging: false,
+    dialectOptions: process.env.NODE_ENV === 'production' ? {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    } : {}
 
 })
 
